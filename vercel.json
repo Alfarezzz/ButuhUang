@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "functions": {
+    "*.php": {
+      "runtime": "vercel-php@0.7.3"
+    },
+    "handlers/*.php": {
+      "runtime": "vercel-php@0.7.3"
+    }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(auth|simulasi|faq|pinjaman|limit|tagihan|cara-pinjam|tentang|cetak-bukti)",
+      "dest": "/$1.php"
+    },
+    {
+      "src": "/handlers/(.*)",
+      "dest": "/handlers/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

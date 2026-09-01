@@ -113,10 +113,19 @@ function getDbConnection() {
 
     try {
         if (DB_DRIVER === 'sqlite') {
-            $dbPath = __DIR__ . '/../database/butuhuang.sqlite';
+            // Deteksi lingkungan Serverless Vercel (Read-only filesystem)
+            if (isset($_SERVER['VERCEL']) || isset($_ENV['VERCEL']) || !is_writable(__DIR__ . '/../database')) {
+                $dbPath = '/tmp/butuhuang.sqlite';
+                if (!file_exists($dbPath) && file_exists(__DIR__ . '/../database/butuhuang.sqlite')) {
+                    @copy(__DIR__ . '/../database/butuhuang.sqlite', $dbPath);
+                }
+            } else {
+                $dbPath = __DIR__ . '/../database/butuhuang.sqlite';
+            }
+
             $dbDir = dirname($dbPath);
             if (!is_dir($dbDir)) {
-                mkdir($dbDir, 0777, true);
+                @mkdir($dbDir, 0777, true);
             }
             
             $isNew = !file_exists($dbPath);
