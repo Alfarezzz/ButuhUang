@@ -1,0 +1,12 @@
+# Dependencies & Environment
+.env
+*.log
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local SQLite (Opsional, dibiarkan ter-track jika ingin zero-config atau diabaikan)
+# database/butuhuang.sqlite
